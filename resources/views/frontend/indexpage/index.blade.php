@@ -11,6 +11,33 @@
     <link rel="stylesheet" href="{{url('public/front/css/nice-select.css')}}">
 
     <script src="{{url('public/front/js/jquery.nice-select.min.js')}}"></script>
+    <style type="text/css">
+        .dropdownmenuoption {
+            box-shadow: 0 0 20px 0 #797979;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            /* z-index: 99; */
+            border-radius: 0 0 5px 5px;
+            margin-top: 56px;
+            /*position: absolute;*/
+        /*top: 100%;*/
+        /*width: 100%;
+        background-color: #fff;
+        box-shadow: 0 0 */0 1px rgba(68, 68, 68, 0.11);
+        /*padding: 20px 30px;
+        height: auto;
+        z-index: 9;
+        right: auto;
+        left: 0;*/
+        }
+        .checkbox-cover .custom-check {
+            display: inline-block;
+            padding-right: 5px;
+            text-align: left;
+            float: left;
+        }
+    </style>
 </head>
 
 <body class="home">
@@ -38,18 +65,21 @@
         <div class="make-my-form">
             <div class="toggle-btns">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Foam
+                    @foreach($data['featured_products'] as $key => $featured_product)
+                    <label class="btn btn-secondary @if($key==0) active @endif">
+
+                        <input type="radio" name="product_id" value="{{$featured_product->id}}" id="option1_{{$featured_product->name}}" onchange="removeItemsbanner()" autocomplete="off" @if($key==0) checked @endif> {{$featured_product->name}}
                     </label>
-                    <label class="btn btn-secondary">
+                    @endforeach
+                    <!-- <label class="btn btn-secondary">
                         <input type="radio" name="options" id="option2" autocomplete="off"> Memory Foam
                     </label>
                     <label class="btn btn-secondary">
                         <input type="radio" name="options" id="option3" autocomplete="off"> Latex
-                    </label>
+                    </label> -->
                 </div>
             </div>
-            <form class="" action="search-list.html">
+            <form class="" action="">
             <div class="main-form d-flex flex-column" id="top-fixed">
                 <button onclick="openNav()" class="navbar-toggler d-none" type="button" data-toggle="collapse"
                     data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -58,50 +88,50 @@
                 </button>
               <section class="d-flex headerCentered">
                     <div class="form-group fix-width lable-top hometext">
-                        <input type="text" tabindex="1" class="inputText" required />
+                        <input type="text" tabindex="1" name="width" class="inputText" required/>
                         <label for="Width" class="floating-label">Width</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>in</option>
-                            <option>cm </option>
-                            <option>mm </option>
-                            <option>ft </option>
-                            <option>m</option>
+                        <select class="form-control" name="width_par" id="exampleFormControlSelect1">
+                            <option value="in">in</option>
+                            <option value="cm">cm </option>
+                            <option value="mm">mm </option>
+                            <option value="ft">ft </option>
+                            <option value="m">m</option>
                         </select>
                     </div>
                     <div class="form-group fix-width lable-top hometext">
-                        <input type="text" tabindex="2" class="inputText" required />
+                        <input type="text" tabindex="2" name="length" class="inputText" required/>
                         <label for="Length" class="floating-label">Length</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>in</option>
-                            <option>cm </option>
-                            <option>mm </option>
-                            <option>ft </option>
-                            <option>m</option>
+                        <select class="form-control" name="length_par" id="exampleFormControlSelect1">
+                            <option value="in">in</option>
+                            <option value="cm">cm </option>
+                            <option value="mm">mm </option>
+                            <option value="ft">ft </option>
+                            <option value="m">m</option>
                         </select>
                     </div>
                     <div class="form-group fix-width lable-top hometext">
                         <div>
-                            <input type="text" tabindex="3" class="inputText" required />
+                            <input type="text" tabindex="3" name="depth" class="inputText" required/>
                             <label class="floating-label">Depth</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>in</option>
-                                <option>cm </option>
-                                <option>mm </option>
-                                <option>ft </option>
-                                <option>m</option>
+                            <select class="form-control" name="depth_par" id="exampleFormControlSelect1">
+                                <option value="in">in</option>
+                                <option value="cm">cm </option>
+                                <option value="mm">mm </option>
+                                <option value="ft">ft </option>
+                                <option value="m">m</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group large-menu">
                         <div class="dropdown-main">
-                            <a href="javascript:void(0)">More Options</a>
+                            <a href="javascript:void(0)" onclick="showtoppings()">More Options</a>
                         
                         </div>
 
                     </div>
 
                     <div class="form-group submit-menu">
-                        <button type="submit" tabindex="4" class="btn btn-search  btn-01">
+                        <button tabindex="4" id="search_button" class="btn btn-search  btn-01">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -133,198 +163,29 @@
                         </a>
                     </div>
 
-                    <div class="dropdown-menu-option">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <header class="d-flex justify-content-between mb-3">
-                                    <h4>Cover</h4>
-                                    <label class="custom-check-heading">
-                                        <input type="checkbox" name="options" id="" autocomplete="">
-                                        <span class="checkmark-heading"></span>
-                                    </label>
-                                </header>
-                                <div class="checkbox-cover d-flex flex-wrap">
-                                    
-                                    
+                    <!-- <div class="dropdown-menu-option" id="product_density">
                         
-                                    <div class="form-group w-50">
-                            
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Polyster
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                    
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Wool
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                    
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Cotton
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Vinyl
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                    
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Silk
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                    
-                    
-                                </div>
-                    
-                    
-                    
-                            </div>
-                            <div class="col-sm-3">
-                                <header class="d-flex  justify-content-between mb-3">
-                                    <h4>Dacron Wrap/Fill</h4>
-                                    <label class="custom-check-heading">
-                                        <input type="checkbox" name="options" id="" autocomplete="">
-                                        <span class="checkmark-heading"></span>
-                                    </label>
-                                </header>
-                            
-                                <div class="checkbox-cover d-flex flex-wrap">
-                                    
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Silk
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Cotton
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                    <div class="form-group w-100">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Wool-Cotton-Silk-Blend
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                            <div class="col-sm-4">
-                                <header class="d-flex  justify-content-between mb-3">
-                                    <h4>Foam Type </h4>
-                                    <label class="custom-check-heading">
-                                        <input type="checkbox" name="options" id="" autocomplete="">
-                                        <span class="checkmark-heading"></span>
-                                    </label>
-                                </header>
-                                <div class="checkbox-cover d-flex flex-wrap">
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">High Density Foam
-                                            <span class="checkmark"></span>
-                                        </label>
+                        
+                    </div> -->
 
 
-                                        <div class="form-group ml-3">
-                                            <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                                <input type="checkbox" name="options" id="" autocomplete="">Extra Firm
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="form-group ml-3">
-                                            <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                                <input type="checkbox" name="options" id="" autocomplete="">Firm
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group w-50">
-                                        <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                            <input type="checkbox" name="options" id="" autocomplete="">Standard-density foam
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <div class="form-group ml-3">
-                                            <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                                <input type="checkbox" name="options" id="" autocomplete="">Medium-firm
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="form-group ml-3">
-                                            <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                                <input type="checkbox" name="options" id="" autocomplete="">Medium-soft
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="form-group ml-3">
-                                            <label title="<div style='width:80px; height:80px;'><img width='100%' height='100%' src='assets/images/latex.jpg' /></div>" class="custom-check" data-toggle="tooltip" data-placement="right" data-html="true" >
-                                                <input type="checkbox" name="options" id="" autocomplete="">Soft
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                    
-                                    
-                    
-                                    
-                                    
-                    
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                            
-                                <header class="d-flex justify-content-between mb-3">
-                                    <h4>Delivery</h4>
-                                    <label class="mb-0 custom-check-heading">
-                                        <input type="checkbox" name="options" id="" autocomplete="">
-                                        <span class="checkmark-heading"></span>
-                                    </label>
-                                </header>
-                            
-                                <div class="form-group delivery p-0 row homrde">
-                                    <select class="form-control " id="delivery">
-                                        <option value="d">Deliver</option>
-                                        <option value="p">Pickup </option>
-                                    </select>
-                                </div>
-                                <div class="form-group fix-width delivery  p-0">
-                                    <div id="textbox" class="pick-up">
-                                        <input class="pt-0" autocomplete="off" type="text" placeholder=" M3C 0C1 " onfocus="this.placeholder = ''"
-                                            onblur="this.plaautocomplete="off" ceholder = 'M3C 0C1'" id="deliverypin" />
-                                        <a href="#" class="chake-locat"> Check</a>
-                                    </div>
-                    
-                                    <div id="longtext">
-                                        <div class="pick-up"> 11620 178 St NW, Edmonton, AB T5S 2E6 Canada</div>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                        </div>
                     </div>
+
+
+
+                    
                 </section>
                 
             </div>
             </form>
         </div>
+        <div class="container dropdownmenuoption" id="product_density">
+                    
+        </div> 
     </section>
 
     <section class="direction">
+           
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
@@ -376,12 +237,12 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="byuse-img">
-                            <a href="rv-list.html"><img src="assets/images/Rv foam cushion.png" alt="images"></a>
+                            <a href="{{url('rv-list')}}"><img src="assets/images/Rv foam cushion.png" alt="images"></a>
                         </div>
 
                     </div>
                     <div class="col-sm-3">
-                        <a href="rv-list.html" class="byuse-content bg-white d-flex">
+                        <a href="{{url('rv-list')}}" class="byuse-content bg-white d-flex">
                             <div class="all-item text-center">
                                 <div class="heading-03 ">
                                     <h3>RV</h3>
@@ -429,7 +290,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="byuse-img">
-                            <a href="motorcycle-list.html"><img src="assets/images/Motercycle-foam-image-2-2.png" alt="images"></a>
+                            <a href="motorcycle-list.html"><img src="{{public_path('assets/images/Motercycle-foam-image-2-2.png')}}" alt="images"></a>
                         </div>
 
                     </div>
@@ -642,189 +503,28 @@
     </section>
 
     <!-- SIZE START -->
-    <section class="sizes sec-pad   ">
+    <section class="sizes sec-pad" id="foamtab">
         <div class="size-main">
             <div class="container">
                 <div class="heading-02">
                     <h2>search by Shape</h2>
                 </div>
                 <div class="row">
+                    @foreach($shapes as $shape)
                     <div class="custom-col">
-                        <a href="cushion-triangle.html" class="size-srch bg-gray">
+                        <a href="{{route('shapefullview',$shape['slug'])}}" class="size-srch bg-gray">
 
                             <div class="size-icon icon1">
-                                <img src="assets/images/icon/triangle-foam-icon.png" alt="" />
+                                <img src="{{$shape['thumbnail']}}" alt="" />
                             </div>
                             <div class="size-head">
-                                <h3>Triangle </h3>
+                                <h3>{{$shape['name']}} </h3>
                             </div>
 
                         </a>
                     </div>
-                    <div class="custom-col">
-                        <a href="cushion-square.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon2">
-                               <img src="assets/images/icon/foam-square-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Square </h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-rectangle.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon3">
-                                <img src="assets/images/icon/Rectangle-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Rectangle </h3>
-                            </div>
-                        </a>
-
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-pentagon.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon4">
-                               <img src="assets/images/icon/Pentagon-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Pentagon</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-octagon.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon5">
-                               <img src="assets/images/icon/Octagon-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Octagon</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-l-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon6">
-                                <img src="assets/images/icon/L-shape-cushion-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>L-Cushion</h3>
-
-                            </div>
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-t-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon7">
-                               <img src="assets/images/icon/T-cushion-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>T-Cushion </h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-circle.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon8">
-                              <img src="assets/images/icon/Circle-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Circle</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-wedge.html" class="size-srch bg-gray">
-                            <div class="size-icon icon17">
-                               <img src="assets/images/icon/Wedge-cushion-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Wedge Cushion </h3>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-bolster-shape.html" class="size-srch bg-gray">
-                            <div class="size-icon icon9">
-                              <img src="assets/images/icon/Bolster-Cushion-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Bolster Cushion </h3>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-cylinder-shape.html" class="size-srch bg-gray ">
-
-                            <div class="size-icon icon10">
-                              <img src="assets/images/icon/Cylinder-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Cylinder Shape</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-diamond-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon11">
-                              <img src="assets/images/icon/Diamond-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Diamond</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-star-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon12">
-                              <img src="assets/images/icon/Star-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Star</h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-alberta-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon13">
-                              <img src="assets/images/icon/Alberta-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Alberta </h3>
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="custom-col">
-                        <a href="cushion-maple-shape.html" class="size-srch bg-gray">
-
-                            <div class="size-icon icon14">
-                              <img src="assets/images/icon/maple-foam-icon.png" alt="" />
-                            </div>
-                            <div class="size-head">
-                                <h3>Maple Leaf</h3>
-                            </div>
-
-                        </a>
-                    </div>
+                    @endforeach
+                   
                     <div class="custom-col">
                         <a href="cushion-custome-size.html" class="size-srch bg-gray">
 
@@ -1245,6 +945,11 @@ Thanks!</p>
     </section>
 
     @include('includes.footer')
+
+
+    <script type="text/javascript">
+    
+    </script>
 
 </body>
 

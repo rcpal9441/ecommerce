@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make My Foam</title>
+    <title>@yield('title')</title>
     <link rel="icon" href="{{asset('public/admin/images/favIcon.png')}}" />
     <link href="{{asset('public/admin/css/bootstrap.min.css')}}" rel="stylesheet" media="screen" />
     <link href="{{asset('public/admin/fonts/font-awesome.css')}}" rel="stylesheet" />
@@ -17,7 +17,7 @@
     <header>
 
         <!-- Logo starts -->
-        <a href="#" class="logo">
+        <a href="{{url('')}}" class="logo">
             <img src="{{asset('public/admin/images/logo.png')}}" alt="" />
         </a>
         <!-- Logo ends -->
@@ -33,7 +33,7 @@
                         <a href="#">Edit Profile</a>
                         <a href="#">Change Password</a>
                         <a href="#">Settings</a>
-                        <a href="#">Logout</a>
+                        <a href="{{url('admin/logout')}}">Logout</a>
                     </li>
                 </ul>
             </li>
@@ -63,6 +63,14 @@
         Copyright &copy; Make My Foam <span>2019</span>. All Rights Reserved.
     </footer>
     <!-- Footer end -->
+
+    <!-- -------Logout Form start           ---------->
+
+    <form id="logout-form" action="{{url('logout')}}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    <!-- -------Logout Form end           ---------->                          
 
     <script src="{{asset('public/admin/js/jquery.js')}}"></script>
     <script src="{{asset('public/admin/js/bootstrap.min.js')}}"></script>

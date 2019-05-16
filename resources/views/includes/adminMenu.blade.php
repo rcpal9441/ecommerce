@@ -10,7 +10,7 @@
         <!-- Sidebar menu starts -->
         <ul class="menu clearfix">
             <li>
-                <a href="{{url('admn/dashboard')}}">
+                <a href="{{route('dashboard.index')}}">
                     <i class="icon-air-play"></i>
                     <span class="menu-item">Dashboard</span>
                 </a>
@@ -18,13 +18,25 @@
             <li>
                 <a href="{{route('products.create')}}">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="menu-item">Add Products</span>
+                    <span class="menu-item">Add RV Products</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('products.index')}}">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="menu-item">Our Products</span>
+                    <span class="menu-item">Our RV Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('toppings.index')}}">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="menu-item">Other Items</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('pricing.index')}}">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="menu-item">Pricing</span>
                 </a>
             </li>
             <li>
@@ -40,9 +52,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('orders.index')}}">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="menu-item">Page Title</span>
+                    <span class="menu-item">Orders</span>
                 </a>
             </li>
             <li>

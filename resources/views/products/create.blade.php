@@ -12,8 +12,8 @@
                 <div class="row gutter">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="page-title">
-                            <h3>Add Product</h3>
-                            <p>Dashboard / <a href="javascript:void()">Add Product</a></p>
+                            <h3>Add RV Product</h3>
+                            <p>Dashboard / <a href="javascript:void()">Add RV Product</a></p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
@@ -94,11 +94,11 @@
                                     <label class="control-label">Product Sub Description</label>
                                     <textarea class="form-control" required name="sub_description">{{$product ? $product->sub_description :  old('sub_description')  }}</textarea>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <!--div class="col-md-4 form-group">
                                     <label class="control-label">Type</label>
                                     {!! Form :: select('type',[''=>'--Select Type--','f'=>'Foam','mf'=>'Memory Foam','l'=>'Latex'],$product ? $product->type : '',['class'=>"form-control",'required'=>'required','id'=>'type']) !!}
                                     
-                                </div>
+                                </div-->
 
                                  <div class="col-md-4 form-group">
                                     <label class="control-label">Product Price</label>

@@ -1,5 +1,7 @@
 @extends('layouts.adminBody')
 
+@section('title','Products')
+
 @section('body')
 
 <div class="dashboard-wrapper dashboard-wrapper-lg">
@@ -12,8 +14,8 @@
                 <div class="row gutter">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="page-title">
-                            <h3>Our Products</h3>
-                            <p>Dashboard / <a href="javascript:void()">Our Products</a></p>
+                            <h3>Our RV Products</h3>
+                            <p>Dashboard / <a href="javascript:void()">Our RV Products</a></p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
@@ -34,17 +36,20 @@
                                             <th>Product Name & Title</th>
                                             <th>Image</th>
                                             <th width="280px">Description</th>
-                                            <th width="280px">Sub-Description</th>
+                                            <th width="280px">Sub Description</th>
                                             <!--th>Size</th-->
                                             <th>Price</th>
                                             <th width="80px">Action</th>
                                         </tr>
 
                                         @if($products ?? '')
+                                         @php
+                                          $i=1
+                                         @endphp
                                         @foreach($products as $prod)
                                     
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{$i++}}</td>
                                             <td><b>{{$prod->name}}</b> <span>({{$prod->title}})</span></td>
                                             <td>
                                                 <figure>{{--*/ $image = $prod->image /*--}}
@@ -68,6 +73,29 @@
                                         @endforeach
                                         @endif
                                     </table>
+
+                        <div class="pagination-section">
+                            <nav aria-label="Page navigation example">
+                                {{$products->links()}}
+                                <!-- <ul class="pagination justify-content-end">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">
+                                            <i class="fa fa-caret-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active">
+                                        
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul> -->
+                            </nav>
+                        </div>
                                 </div>
                             </div>
 

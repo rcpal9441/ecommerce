@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Products;
+use Auth;
 
 class ProductsController extends Controller
 {
@@ -19,7 +20,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products=Products::all();
+        $products=Products::paginate(10);
         $data['products']=$products;
         //dd($data);
         return view('products.index',$data);
@@ -48,7 +49,7 @@ class ProductsController extends Controller
          'name'=>'required',
          'title'=>'required',
          'description'=>'required',
-         'type'=>'required',
+         //'type'=>'required',
          'price'=>'required|numeric|between:0,99.99',
          'status'=>'required',
          'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -67,8 +68,9 @@ class ProductsController extends Controller
         $products->title=$request->title;
         $products->description=$request->description;
         $products->sub_description=$request->sub_description;
-        $products->type=$request->type;
+       // $products->type=$request->type;
         $products->price=$request->price;
+        $products->user_id=Auth::user()->id;
         $products->image=$imageName;
         $products->status=$request->status;
         $products->save();
@@ -112,7 +114,7 @@ class ProductsController extends Controller
          'name'=>'required',
          'title'=>'required',
          'description'=>'required',
-         'type'=>'required',
+        // 'type'=>'required',
          'price'=>'required|numeric|between:0,99.99',
          'status'=>'required',
          // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -140,7 +142,7 @@ class ProductsController extends Controller
         $products->title=$request->title;
         $products->description=$request->description;
         $products->sub_description=$request->sub_description;
-        $products->type=$request->type;
+        //$products->type=$request->type;
         $products->price=$request->price;
         $products->image=$imageName;
         $products->status=$request->status;

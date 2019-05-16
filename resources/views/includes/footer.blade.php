@@ -287,10 +287,10 @@
 
                         <div class="links-password">
                             <p class="">Already have an account?
-                                <a href="# " class="para-1-dropdown ml-auto"> Login!</a>
+                                <a href="javascript:void(0);" class="para-1-dropdown ml-auto" data-toggle="modal" data-target="#exampleModalCenter"> Login!</a>
                             </p>
                         </div>
-                        <div class="para-1-dropdown mt-4 text-center">
+                        <!--div class="para-1-dropdown mt-4 text-center">
                             <span>Or Continue Using</span>
                         </div>
 
@@ -299,7 +299,7 @@
                                 <i class="fab fa-facebook-f"></i>Facebook</a>
                             <a href="#" class="social-btn ml-3 ggle-btn ">
                                 <i class=" fab fa-google "></i> Google</a>
-                        </div>
+                        </div-->
                     </form>
                 </div>
 
@@ -311,13 +311,13 @@
     <script src="{{asset('public/front/js/3.1.1.jquery.min.js')}}"></script>
     <script src="{{asset('public/front/js/popper.min.js')}}"></script>
     <script src="{{asset('public/front/js/bootstrap.min.js')}}"></script>
-
-    <script src="{{asset('public/front//js/custom.js')}} "></script>
-
+    <script src="{{asset('public/front/js/common.js')}} "></script>
+    <script src="{{asset('public/front/js/custom.js')}} "></script>
     <!-- <script src="assets/js/jquery.js "></script> -->
     <script src="{{asset('public/front/js/jquery.nice-select.min.js')}} "></script>
     <script src="{{asset('public/front/js/fastclick.js')}} "></script>
     <script src="{{asset('public/front/js/prism.js')}} "></script>
+     <script src="{{url('public/js/custom.js')}}"></script>
 
     <script>
         $(document).ready(function () {

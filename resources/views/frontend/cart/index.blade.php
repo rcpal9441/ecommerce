@@ -4,7 +4,7 @@
 
 
 <section class="checkout-section sec-pad bg-gray">
-
+@csrf
         <div class="container">
 
             <div class="row">
@@ -49,121 +49,75 @@
 
                                     </thead>
 
-                                    <tbody>
+                                    <tbody id="addCartItems">
 
-                                        <tr>
+                                                 @php 
+                                                 $i=1;
+                                                 $total=0;
+                                                 @endphp 
+                                                @if($carts)
 
-                                            <td>
+                                                 @foreach($carts as $id => $details)
+                                                   @php 
+                                                    $total += $details['price'] * $details['quantity'] 
+                                                    @endphp
 
-                                                <img src="{{url('public/front/images/cushion.jpg')}}" /> </td>
-
-                                            <td>
-
-                                                <h5>Persian Cushions</h5>
-
-                                                <p class="d-block font-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cumque harum</p>
-
-                                            </td>
-
-                                            <td>Delivery By 09 Jan - 10 Jan | FREE</td>
-
-                                            <td>
-
-                                                <input class="form-control" type="number" name="quantity" value="1" />
-
-                                            </td>
-
-                                            <td class="text-center">$30</td>
-
-                                            <td class="text-right">
-
-                                                <button class="btn btn-sm btn-outline-danger">
-
-                                                    <i class="fa fa-trash"></i>
-
-                                                </button>
-
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>
-
-                                                <img src="{{url('public/front/images/cushion.jpg')}}" /> </td>
-
-                                            <td>
-
-                                                <h5>Memory Foam</h5>
-
-                                                <p class="d-block font-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cumque harum</p>
-
-                                            </td>
-
-                                            <td>Delivery By 09 Jan - 10 Jan | FREE</td>
-
-                                            <td>
-
-                                                <input class="form-control" type="number" name="quantity" value="2" />
-
-                                            </td>
-
-                                            <td class="text-center">$20</td>
-
-                                            <td class="text-right">
-
-                                                <button class="btn btn-sm btn-outline-danger">
-
-                                                    <i class="fa fa-trash"></i>
-
-                                                </button>
-
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>
-
-                                                <img src="{{url('public/front/images/cushion.jpg')}}" /> </td>
-
-                                            <td>
-
-                                                <h5>Latex Dunlop</h5>
-
-                                                <p class="d-block font-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cumque harum</p>
-
-                                            </td>
-
-                                            <td>Delivery By 09 Jan - 10 Jan | FREE</td>
-
-                                            <td>
-
-                                                <input class="form-control" type="number" name="quantity" value="0" />
-
-                                            </td>
-
-                                            <td class="text-center">$40</td>
-
-                                            <td class="text-right">
-
-                                                <button class="btn btn-sm btn-outline-danger">
-
-                                                    <i class="fa fa-trash"></i>
-
-                                                </button>
-
-                                            </td>
-
-                                        </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="{{url($details['image'])}}"> </td>
+                                                        <td>
+                                                           <h5>{{$details['name'] }}</h5>
+                                                            <p class="d-block font-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cumque harum</p>
+                                                        </td>
+                                                        <td>Delivery By 09 Jan - 10 Jan | FREE</td>
+                                                        <td>
+                                                            <input class="form-control" type="number" min="1" onchange="commn.updateCart({{$id}},this,'review-order-list');" value="{{ $details['quantity'] }}">
+                                                        </td>
+                                                        <td class="text-center">${{$details['price'] * $details['quantity']}}</td>
+                                                        <td class="text-right">
+                                                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="commn.removeCart({{$id}});">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
 
 
+                                                    @if($shapeCarts)
+                                                    
+                                                 @foreach($shapeCarts as $id => $details)
+                                                   @php 
+                                                    $total += $details['price'] * $details['quantity'];
+                                                    $total +=$details['gst'];
+                                                    @endphp
+
+                                                    <tr>
+                                                        <td>
+                                                            <img src="{{url('public/assets/images/icon/'.$details['image'])}}"> </td>
+                                                        <td>
+                                                           <h5>{{$details['shapeName'] }}</h5>
+                                                            <p class="d-block font-12">{{$details['dimension']}}</p>
+                                                        </td>
+                                                        <td>Delivery By 09 Jan - 10 Jan | FREE</td>
+                                                        <td>
+                                                            <input class="form-control" type="number" min="1" onchange="commn.updateCart({{$id}},this,'review-order-list');" value="{{ $details['quantity'] }}">
+                                                        </td>
+                                                        <td class="text-center">${{$details['price'] * $details['quantity']}}</td>
+                                                        <td class="text-right">
+                                                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="commn.removeCart({{$id}});">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    
+                                                    @endif
+
+                                                </tbody>
 
 
-
-                                    </tbody>
+                                    
 
                                 </table>
 
@@ -175,13 +129,13 @@
 
                                 <div class="col-sm-6  col-md-6">
 
-                                    <a href="persian-cushions.html" class="btn btn-01">Continue Shopping</a>
+                                    <a href="{{url('')}}" class="btn btn-01">Continue Shopping</a>
 
                                 </div>
 
                                 <div class="col-sm-6 col-md-6 text-right">
 
-                                    <a href="checkout.html" class="btn btn-01">Place Order</a>
+                                    <a href="{{url('checkout')}}" class="btn btn-01">Place Order</a>
 
                                 </div>
 
@@ -224,8 +178,7 @@
                         <div class="cover-total subtotal  d-flex">
 
                             <h3>Subtotal</h3>
-
-                            <h3 class="ml-auto">$90</h3>
+                            <h3 class="ml-auto" id="subtotal">${{$total}}</h3>
 
                         </div>
 
@@ -261,11 +214,11 @@
 
                         <div class="cover-total  subtotal  d-flex mb-0 pb-0">
 
-                            <span class="font-12 text-orange w-100 d-flex mb-0">Your Total Savings on this order
+                            <!--span class="font-12 text-orange w-100 d-flex mb-0">Your Total Savings on this order
 
                                 <b class="ml-auto">$10</b>
 
-                            </span>
+                            </span-->
 
                         </div>
 
@@ -277,7 +230,8 @@
 
                         <div class="cover-total total d-flex align-items-center justify-content-between total mb-0 pb-1">
                             <h5 class="mb-0">Total</h5>
-                            <h2 class="mb-0">$118</h2>
+                            <h2 class="mb-0" id="total">${{$total+10+9}}</h2>
+                            
                         </div>
 
                     </div>
